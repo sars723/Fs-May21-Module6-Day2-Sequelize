@@ -7,8 +7,29 @@ const sequelize = new Sequelize(PGDATABASE, PGUSERNAME, PGPASSWORD, {
   port: PGPORT,
   dialect: "postgres",
 });
+/* const schemas = ["development", "production"]
+  .map(
+    (schema) => `CREATE SCHEMA  IF NOT EXISTS ${schema} AUTHORIZATION postgres`
+  )
+  .join(";");
+console.log(schemas);
 
-const testConnection = async () => {
+export const syncSequelize = async () => {
+  try {
+    await sequelize.authenticate();
+    await sequelize.query(schemas);
+    await sequelize.sync({
+      // alter: true,
+      logging: false,
+      schema: "development",
+    });
+    console.log("DB authenticated");
+  } catch (error) {
+    console.log(error);
+  }
+}; */
+
+ const testConnection = async () => {
   try {
     sequelize.authenticate().then(() => {
       console.log("db is authenticated");
@@ -18,6 +39,6 @@ const testConnection = async () => {
   }
 };
 
-testConnection();
+testConnection(); 
 
 export default sequelize;

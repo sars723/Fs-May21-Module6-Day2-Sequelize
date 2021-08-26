@@ -2,6 +2,8 @@ import express from "express";
 import db from "../../db/models/association-models.js";
 const Product = db.Product;
 const Category = db.Category;
+const User=db.User
+const Comment=db.Comment
 import s from "sequelize";
 const { Op } = s;
 
@@ -24,6 +26,8 @@ router
       const data = await Product.findAll({
         ...filter,
         include: Category,
+        include: User,
+        include: Comment,
       });
       res.send(data);
     } catch (error) {
